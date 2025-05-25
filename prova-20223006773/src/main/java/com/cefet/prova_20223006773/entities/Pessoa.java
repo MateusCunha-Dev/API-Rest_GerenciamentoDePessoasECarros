@@ -1,10 +1,15 @@
 package com.cefet.prova_20223006773.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,6 +24,11 @@ public class Pessoa{
 
     @Column(nullable = false, unique = true)
     private String cpf;
+
+    @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Carro> carros = new ArrayList<>();
+
+
     public Pessoa(){
 
     };
@@ -88,5 +98,18 @@ public class Pessoa{
         result = prime * result + ((nome == null) ? 0 : nome.hashCode());
         result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
         return result;
+    }
+
+    public List getCarros() {
+        return carros;
+    }
+
+    public void setCarros(List carros) {
+        this.carros = carros;
+    }
+
+    public void adicionarCarro(Carro carro) {
+        carros.add(carro);
+        carro.setPessoa(this);
     }
 }

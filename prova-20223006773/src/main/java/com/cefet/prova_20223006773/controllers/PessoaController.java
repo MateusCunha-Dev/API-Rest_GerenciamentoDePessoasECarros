@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cefet.prova_20223006773.dto.CarroDTO;
 import com.cefet.prova_20223006773.dto.PessoaDTO;
 import com.cefet.prova_20223006773.services.PessoaService;
 
@@ -49,11 +51,16 @@ public class PessoaController {
     return ResponseEntity.ok(pessoaAtualizado);
     }
 
-    //aqui está errado
-    /* 
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
     pessoaService.delete(id);
-    return ResponseEntity.noContent().build();
-    }*/
+    return ResponseEntity.noContent().build(); // Retorna HTTP 204 (No Content)
+}
+
+    @GetMapping("/{id}/carros")
+    public ResponseEntity<List<CarroDTO>> listarCarrosPorPessoa(@PathVariable Long id) {
+    List<CarroDTO> carros = pessoaService.findCarrosByPessoaId(id);
+    return ResponseEntity.ok(carros);
+}
 }
