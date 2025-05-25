@@ -55,7 +55,7 @@ public class PessoaController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
     pessoaService.delete(id);
-    return ResponseEntity.noContent().build(); // Retorna HTTP 204 (No Content)
+    return ResponseEntity.noContent().build(); 
 }
 
     @GetMapping("/{id}/carros")
